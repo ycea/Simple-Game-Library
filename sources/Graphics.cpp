@@ -26,7 +26,6 @@ void Graphics::drawRect(SDL_Rect *Rect, uint8_t RGBA[4])
     SDL_SetRenderDrawColor(Renderer, RGBA[0], RGBA[1], RGBA[2], RGBA[3]);
     SDL_RenderDrawRect(Renderer, Rect);
     SDL_RenderFillRect(Renderer, Rect);
-    SDL_RenderPresent(Renderer);
 }
 
 void Graphics::renderSprite(char file[], SDL_Rect *size_and_pos)
@@ -40,8 +39,8 @@ void Graphics::renderSprite(char file[], SDL_Rect *size_and_pos)
 
 void Graphics::updateWindow(uint16_t FPS)
 {
+    SDL_RenderPresent(Renderer);
     SDL_Delay(1000/FPS); // 1000 miliseconds. Result is miliseconds delay
-
     SDL_SetRenderDrawColor(Renderer, 0, 0, 0, 0);
     SDL_RenderClear(Renderer);
 
