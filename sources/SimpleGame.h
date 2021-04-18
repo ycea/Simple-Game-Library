@@ -1,6 +1,7 @@
 #ifndef PROJECT_BUILDER_H_INCLUDED
 #define PROJECT_BUILDER_H_INCLUDED
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_Image.h>
 #include "InputHandler.h"
 #include "Graphics.h"
 #include "Physics.h"
