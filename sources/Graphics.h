@@ -6,7 +6,6 @@
 #include <string>
 #include <unordered_map>
 #include "Colors.h"
-
 class Graphics
 {
 private:
