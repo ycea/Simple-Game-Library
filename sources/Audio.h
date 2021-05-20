@@ -1,15 +1,24 @@
 #ifndef AUDIO_H_INCLUDED
 #define AUDIO_H_INCLUDED
 #include <cstdint>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_mixer.h>
+#include <unordered_map>
+#include <string>
+
 
 class Audio
 {
 private:
-    uint8_t *audio_buffer;
-    uint32_t audio_len;
-    void audio_callback(void *user_data, uint8_t *stream, int len);
+    typedef std::unordered_map<std::string, Mix_Chunk*> map_of_sound_eff;
+    map_of_sound_eff table_of_sound_eff;
+    typedef std::unordered_map<std::string, Mix_Music*> map_of_music;
+    map_of_music table_of_music;
+
 public:
-    int make_sound(const char* file);
+    Audio();
+    int make_sound(std::string file);
+    int play_music(std::string file);
 };
 
 #endif // AUDIO_H_INCLUDED

@@ -14,7 +14,7 @@
     }
     if(TTF_Init() != 0)
     {
-        exit(9);
+        exit(13);
     }
 }
 

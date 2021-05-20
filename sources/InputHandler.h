@@ -8,6 +8,7 @@ private:
     SDL_Event *prepareEvent;
 public:
     InputHandler(SDL_Event *raw_event);
+
     bool keyDown(int scan_code);
     bool mouseButtonDown(uint8_t button);
     char getPressedKey();

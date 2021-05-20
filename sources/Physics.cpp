@@ -1,5 +1,5 @@
 #include "Physics.h"
-
+#include <cmath>
 bool Physics::checkCollide(SDL_Rect Rect1, SDL_Rect Rect2)
 {
 
@@ -14,4 +14,9 @@ bool Physics::checkCollide(SDL_Rect Rect1, SDL_Rect Rect2)
         return true;
     }
     return false;
+}
+
+void Physics::calculateFalling(int speed0, int sec_time, SDL_Rect *falling_object)
+{
+    falling_object->y = round((speed0 * sec_time ) + (grav_accel * (sec_time * sec_time) / 2));
 }

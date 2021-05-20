@@ -1,50 +1,34 @@
 #include "Audio.h"
-extern "C"
-{
 
-#include <SDL2/SDL.h>
-}
-
-void Audio::audio_callback(void *user_data, uint8_t *stream, int len)
+Audio::Audio()
 {
-    if(audio_len == 0)
+    if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) < 0)
     {
-        return;
+        exit(13);
     }
-    len = (len > audio_len ? audio_len : len);
-
-    SDL_MixAudio(stream, audio_buffer, len, SDL_MIX_MAXVOLUME);
-    audio_buffer += len;
-    audio_len -= len;
 }
 
-int Audio::make_sound(const char* file)
+int Audio::play_music(std::string file)
 {
-
-    uint8_t *wav_buffer;
-    uint32_t wav_len;
-    SDL_AudioSpec wav_spec;
-
-    if(SDL_LoadWAV(file, &wav_spec, &wav_buffer, &wav_len) == NULL)
+    // if it is not playing and not paused
+    if((Mix_PlayingMusic() != 0) && (Mix_PlayingMusic() != 1))
     {
+        return 0;
+    }
+    if(table_of_music.find(file) != table_of_music.end())
+    {
+        Mix_PlayMusic(table_of_music.at(file), -1);
         return 1;
     }
     else
     {
-        wav_spec.userdata = NULL;
-        audio_buffer = wav_buffer;
-        audio_len = wav_len;
-        if(SDL_OpenAudio(&wav_spec, NULL) < 0)
+        Mix_Music *music = Mix_LoadMUS(file.c_str());
+        if(music == nullptr)
         {
-            return 1;
+            return 0;
         }
-        SDL_PauseAudio(0);
-        while(audio_len > 0)
-        {
-            SDL_Delay(100);
-        }
-        SDL_CloseAudio();
-        SDL_FreeWAV(wav_buffer);
+        Mix_PlayMusic(music, -1);
+        table_of_music.insert(std::pair(file, music));
     }
-    return 0;
+
 }

@@ -9,4 +9,5 @@
 SDL_Event event;
 InputHandler input_handler(&event);
 Physics physics;
+#include "GUI.h"
 #endif // PROJECT_BUILDER_H_INCLUDED
